@@ -16,16 +16,13 @@ import { SignInProvider } from './SignInContext.jsx';
 const theme = createMuiTheme({
     palette: {
         primary: {
-            // main: '#8F754F',
             main: '#696969',
         },
         secondary: {
             light: '#C1B8B8',
-            // main: '#424242',
             main: '#dd2c00',
             contrastText: '#ffcc00',
         },
-        // type: 'light',
     },
     '@global': {
         'html, body, #app': {

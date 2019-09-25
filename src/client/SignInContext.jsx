@@ -7,21 +7,21 @@ export const SignInContext = createContext();
 export const SignInProvider = (props) => {
     const { children } = props;
 
+    const [registered, setRegistered] = useState(false);
     const [auth, setAuth] = useState(false);
     const [currentUser, setCurrentUsers] = useState(false);
 
 
 
-    // useEffect(() => {
-    //     if(auth){
-    //        alert("user signed in")
-    //     }
+    useEffect(() => {
+        console.log(registered)
+        console.log(auth)
 
-    // }, []);
+    }, [registered, auth] );
 
 
     return(
-        <SignInContext.Provider value={[auth, setAuth]}>
+        <SignInContext.Provider value={[ [registered, setRegistered], [auth, setAuth], [currentUser, setCurrentUsers] ]}>
             {children}
         </SignInContext.Provider>
 

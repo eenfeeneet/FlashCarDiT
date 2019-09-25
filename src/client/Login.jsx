@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -10,6 +10,8 @@ import { Box, Container, Grid, Paper} from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
 import axios from 'axios';
+
+import { SignInContext } from './SignInContext';
 
 function Copyright() {
     return (
@@ -70,34 +72,40 @@ const useStyles = makeStyles(theme => ({
     submit: {
         margin: theme.spacing(3, 0, 2),
     },
-
 }));
 
 export default function Login() {
     const classes = useStyles();
-    // const [auth, setAuth] = React.useState(true);
-    const [currentName, setCurrentName] = useState(null)
-    const [currentPassword, setCurrentPassword] = useState(null)
+    const [userName, setUserName] = useState(null)
+    const [passWord, setPassword] = useState(null)
+    const [ [ auth, setAuth ], [currentUser, setCurrentUsers] ] = useContext(SignInContext)
 
-
+    function handleFirstNameInput(){
+        console.log(event.target.value)
+        const inputFirstname = event.target.value
+        setFirstName(inputFirstname)
+    }
+    function handleLastNameInput(){
+        console.log(event.target.value)
+        const inputLastname = event.target.value
+        setLastName(inputLastname)
+    }
     function handleUserNameInput(){
         console.log(event.target.value)
         const inputUsername = event.target.value
-        setCurrentName(inputUsername)
-
+        setUserName(inputUsername)
     }
 
     function handlePasswordInput(){
         console.log(event.target.value)
         const inputPassword = event.target.value
-        setCurrentPassword(inputPassword)
+        setPassword(inputPassword)
     }
 
-    function handleSubmit (e) {
-        // e.preventDefault();
+    function handleSubmit () {
         const user = {
-          username: currentName,
-          password: currentPassword
+            username: userName,
+            password: passWord
         };
         console.log(user)
         axios({
@@ -127,6 +135,8 @@ export default function Login() {
                     </Typography>
 
                     <form className={classes.form} noValidate>
+
+
                         <TextField
                             variant="outlined"
                             margin="normal"
@@ -137,7 +147,6 @@ export default function Login() {
                             autoComplete="username"
                             autoFocus
                             onChange={handleUserNameInput}
-
                         />
                         <TextField
                             variant="outlined"

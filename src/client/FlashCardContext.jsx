@@ -1,6 +1,7 @@
 import React, {useState, createContext} from 'react';
 import PropTypes from 'prop-types';
 
+
 export const FlashCardContext = createContext();
 
 export const FlashCardProvider = props => {
@@ -501,13 +502,13 @@ export const FlashCardProvider = props => {
         selected: false,
         deckId: null,
         sDeck: {}
-    })
+    });
     const [ selectedCard, setSelectedCard ] = useState({
         selected: false,
         deckId: null,
         cardId: null,
         sCard: {}
-    })
+    });
     const [ isDeckCreated, setIsDeckCreated ] = useState(false);
     const [ isCardCreated, setIsCardCreated ] = useState(false);
     const [ auth, setAuth ] = useState(false);

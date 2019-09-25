@@ -23,8 +23,7 @@ const useStyles = makeStyles(theme => ({
 
 function App() {
     const classes = useStyles();
-    // const [[auth, setAuth]] = useContext(FlashCardContext);
-    // const [[auth, setAuth]] = useContext(SignInContext);
+    const [[auth, setAuth]] = useContext(SignInContext);
 
     useEffect(() => {
         const checkCookie = document.cookie
@@ -51,8 +50,9 @@ function App() {
                 <Switch>
                     <Route path="/" exact component={MenuSideBar}/>
                     <Route path="/login" render={() => ( auth ?  <Redirect to="/" /> : <Login /> )} />
-                    {/*<Route path="/login"  component={Login}/>*/}
-                    <Route path="/register" component={Register} />
+                    <Route path="/register" render={() => ( registered ?  <Redirect to="/login" /> : <Register /> )} />
+                    {/*<Route path="/login"  component={Login}/>
+                    <Route path="/register" component={Register} />*/}
                     <Route path="/test" component={MenuSideBar} />
 
                 </Switch>

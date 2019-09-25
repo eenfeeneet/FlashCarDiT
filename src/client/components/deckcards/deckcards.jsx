@@ -38,7 +38,7 @@ const useStyles = makeStyles(theme => ({
 
 const CardsList = ({cards}) => {
     const classes = useStyles();
-    const [ ,[ selectedDeck, setSelectedDeck ],[ selectedCard, setSelectedCard ] ] = useContext(FlashCardContext);
+    const [ [allDecks, setAllDecks], [ selectedDeck, setSelectedDeck ], [ selectedCard, setSelectedCard ] ] = useContext(FlashCardContext);
     const { selected, deckId, sDeck } = selectedDeck
 
     const handleSelectCard = ( id) => {
@@ -51,6 +51,20 @@ const CardsList = ({cards}) => {
         }))
     };
 
+    const handleDelete = ( id) => {
+        console.log("deleted card ID is: ", id)
+
+        const sCardIndex = sDeck.cards.findIndex( card => card.id === id)
+
+        console.log("lalalal", sCardIndex)
+        console.log("length b4: ",sDeck.cards.length)
+
+        const newDeckCards = sDeck.cards.splice(sCardIndex, 1)
+        console.log(newDeckCards.length)
+        console.log("length a4", sDeck.cards.length)
+
+
+    };
 
     return (
         <Card className={`p-2 ${classes.card}`}>
@@ -68,7 +82,7 @@ const CardsList = ({cards}) => {
                             <ListItemText primary={`Card ${id}`} />
 
                             <ListItemSecondaryAction>
-                                <IconButton edge="end" aria-label="delete">
+                                <IconButton edge="end" aria-label="delete" onClick={event => handleDelete( id)}>
                                     <DeleteIcon />
                                 </IconButton>
                             </ListItemSecondaryAction>

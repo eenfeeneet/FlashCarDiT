@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -9,6 +9,11 @@ import { Box, Container, Grid, Paper} from '@material-ui/core';
 import { TextField, FormControlLabel, Typography} from '@material-ui/core';
 
 import { Link } from 'react-router-dom';
+
+import { SignInContext } from './SignInContext';
+
+import axios from 'axios';
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -68,34 +73,48 @@ const useStyles = makeStyles(theme => ({
     submit: {
         margin: theme.spacing(3, 0, 2),
     },
-
 }));
 
 export default function Register() {
     const classes = useStyles();
-    const [newName, setNewName] = useState(null)
-    const [newPassword, setNewPassword] = useState(null)
+    const [firstName, setFirstName] = useState(null)
+    const [lastName, setLastName] = useState(null)
+    const [userName, setUserName] = useState(null)
+    const [passWord, setPassword] = useState(null)
+    const [ [registered, setRegistered], [ auth, setAuth ], [currentUser, setCurrentUsers] ] = useContext(SignInContext)
 
+    function handleFirstNameInput(){
+        console.log(event.target.value)
+        const inputFirstname = event.target.value
+        setFirstName(inputFirstname)
+    }
+    function handleLastNameInput(){
+        console.log(event.target.value)
+        const inputLastname = event.target.value
+        setLastName(inputLastname)
+    }
     function handleUserNameInput(){
         console.log(event.target.value)
         const inputUsername = event.target.value
-        setNewName(inputUsername)
-
+        setUserName(inputUsername)
     }
 
     function handlePasswordInput(){
         console.log(event.target.value)
         const inputPassword = event.target.value
-        setNewPassword(inputPassword)
+        setPassword(inputPassword)
     }
 
-    function handleSubmit (e) {
-        // e.preventDefault();
+    function handleSubmit () {
+        const initials = firstName[0] + lastName[0]
+        console.log(initials)
         const user = {
-          username: newName,
-          password: newPassword
+            firstname: firstName,
+            lastname: lastName,
+            username: userName,
+            initials: initials,
+            password: passWord
         };
-
         console.log(user)
         axios({
             method: 'post',
@@ -104,10 +123,18 @@ export default function Register() {
         })
             .then(res => {
                 console.log(res.data);
+                // console.log("registered: ", registered)
+                // setRegistered(res.data);
             })
             .catch(error => console.error(error))
 
     }
+
+
+    // useEffect(() => {
+    //     console.log(registered)
+
+    // }, [] );
 
     return (
 
@@ -124,6 +151,34 @@ export default function Register() {
                     </Typography>
 
                     <form className={classes.form} noValidate>
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    autoComplete="fname"
+                                    name="firstName"
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="firstname"
+                                    label="First Name"
+                                    onChange={handleFirstNameInput}
+                                    autoFocus
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    autoComplete="lname"
+                                    name="lastname"
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="lastName"
+                                    label="Last Name"
+                                    onChange={handleLastNameInput}
+                                    autoFocus
+                                />
+                            </Grid>
+                        </Grid>
                         <TextField
                             margin="normal"
                             variant="outlined"
