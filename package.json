@@ -103,7 +103,7 @@
     "react-swipeable-views": "^0.13.3",
     "request": "^2.88.0",
     "sanitize.css": ">=8.0.0",
-    "swiper": "^4.5.0",
+    "swiper": "^6.5.1",
     "webpack": "^4.29.4",
     "webpack-dev-middleware": ">=3.5.2",
     "webpack-hot-middleware": ">=2.24.3",
